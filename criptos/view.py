@@ -1,4 +1,5 @@
 from criptos import MONEDAS
+from criptos.errors import CONNECT_ERROR
 
 class CriptoValorView:
     def __init__(self):
@@ -24,3 +25,19 @@ class CriptoValorView:
 
     def mostrar(self, tasa):
         print("1 {} son {:.2f} {}".format(self.origen, tasa, self.destino))
+
+    def error(self, codigo):
+        if codigo == 400:
+            print("Hay algo erróneo en tu petición")
+        elif codigo == 401:
+            print("No autorizado - Tu APIkey es errónea")
+        elif codigo == 403:
+            print("Prohibido - Tu API no tiene acceso a esta funcionalidad")
+        elif codigo == 429:
+            print("Has excedido el límite de peticiones de tu API key")
+        elif codigo == 550:
+            print("Sin datos - La moneda pedida no existe en nuestra base de datos")
+        elif codigo == CONNECT_ERROR:
+            print("Imposible comunicar con la API. Inténtelo dentro de un rato.")
+        else:
+            print("{}, no sabemos este código que es".format(codigo))
